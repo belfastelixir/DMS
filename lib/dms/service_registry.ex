@@ -17,13 +17,13 @@ defmodule DMS.ServiceRegistry do
   end
 
   @spec via_registry(DMS.id) :: tuple()
-  def via_registry(form_ref) do
-    {:via, Registry, {@registry_name, form_ref}}
+  def via_registry(ref) do
+    {:via, Registry, {@registry_name, ref}}
   end
 
-  def whereis_name(form_ref) do
-    Registry.whereis_name({@registry_name, form_ref})
+  def whereis_name(ref) do
+    Registry.whereis_name({@registry_name, ref})
   end
 
-  def exists?(form_ref), do: whereis_name(form_ref) != :undefined
+  def exists?(ref), do: whereis_name(ref) != :undefined
 end

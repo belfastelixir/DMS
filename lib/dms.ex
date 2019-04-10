@@ -12,11 +12,11 @@ defmodule DMS do
 
   @spec ping(id) :: :pong | :pang
   def ping(id) do
-    Service.notify(id)
+    Service.ping(id)
   end
 
   @spec alive?(id) :: boolean()
   def alive?(id) do
-    false
+    Service.alive?(id)
   end
 end

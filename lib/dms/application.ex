@@ -7,6 +7,7 @@ defmodule DMS.Application do
 
   def start(_type, _args) do
     children = [
+      {DynamicSupervisor, strategy: :one_for_one, name: DMS.Service.Supervisor},
       DMS.ServiceRegistry.child_spec()
     ]
 
