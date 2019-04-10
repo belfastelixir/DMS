@@ -1,4 +1,4 @@
-defmodule Dms.MixProject do
+defmodule DMS.MixProject do
   use Mix.Project
 
   def project do
@@ -15,7 +15,7 @@ defmodule Dms.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Dms.Application, []}
+      mod: {DMS.Application, []}
     ]
   end
 

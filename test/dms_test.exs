@@ -1,8 +1,9 @@
-defmodule DmsTest do
+defmodule DMSTest do
   use ExUnit.Case
-  doctest Dms
+  doctest DMS
 
-  test "greets the world" do
-    assert Dms.hello() == :world
+  test "ping should init a new dms" do
+    payload = %{id: "test-svc"}
+    assert :pong = DMS.ping(payload)
   end
 end

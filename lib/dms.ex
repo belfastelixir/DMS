@@ -1,18 +1,22 @@
-defmodule Dms do
+defmodule DMS do
   @moduledoc """
-  Documentation for Dms.
+  Dead Mans Switch
+
+  -
   """
 
-  @doc """
-  Hello world.
+  @typedoc "id of the service"
+  @type id :: String.t()
 
-  ## Examples
+  alias DMS.Service
 
-      iex> Dms.hello()
-      :world
+  @spec ping(id) :: :pong | :pang
+  def ping(id) do
+    Service.notify(id)
+  end
 
-  """
-  def hello do
-    :world
+  @spec alive?(id) :: boolean()
+  def alive?(id) do
+    false
   end
 end
