@@ -1,18 +1,32 @@
-defmodule Dms do
+defmodule DMS do
   @moduledoc """
-  Documentation for Dms.
+  Dead Mans Switch
+
+  Allows a service to ping with an identity which will result in that
+  identity responding as alive.
+
+  After a @timeout period where a service has not pinged with said idenity,
+  the service will no longer respond as alive.
   """
+
+  @typedoc "id of the service"
+  @type id :: String.t()
+
+  alias DMS.Service
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Dms.hello()
-      :world
-
+  Returns `:pong` if service has been ackowledged as alive by DMS otherwise `:pang`.
   """
-  def hello do
-    :world
+  @spec ping(id) :: :pong | :pang
+  def ping(id) do
+    Service.ping(id)
+  end
+
+  @doc """
+  Returns `true` if service with `id` has pinged within `@timeout` period otherwise `false`.
+  """
+  @spec alive?(id) :: boolean()
+  def alive?(id) do
+    Service.alive?(id)
   end
 end

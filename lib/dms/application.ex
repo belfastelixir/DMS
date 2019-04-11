@@ -1,20 +1,15 @@
-defmodule Dms.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
+defmodule DMS.Application do
   @moduledoc false
 
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      # Starts a worker by calling: Dms.Worker.start_link(arg)
-      # {Dms.Worker, arg},
+      DMS.Service.Supervisor.child_spec(),
+      DMS.Service.Registry.child_spec()
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Dms.Supervisor]
+    opts = [strategy: :one_for_one, name: DMS.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
