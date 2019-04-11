@@ -1,10 +1,11 @@
 defmodule DMS.Service do
   @moduledoc """
   Service Actor respresenting an active service.
-  Will terminate if there has not been a `ping/1` call within `@timeout`.
+  Will terminate if there has not been a `ping/1` against a `DMS.id` within `@timeout`.
   """
   use GenServer
-  use DMS.Service.Registry
+
+  import DMS.Service.Registry, only: [via_registry: 1, whereis_name: 1, exists?: 1]
 
   require Logger
 

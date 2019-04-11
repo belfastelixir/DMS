@@ -8,13 +8,6 @@ defmodule DMS.Service.Registry do
 
   @type via_tuple :: {:via, Registry, {module(), DMS.id()}}
 
-  @doc false
-  defmacro __using__(_opts) do
-    quote do
-      import DMS.Service.Registry, only: [via_registry: 1, whereis_name: 1, exists?: 1]
-    end
-  end
-
   @doc "Child Specification for `#{__MODULE__}`"
   @spec child_spec :: map()
   def child_spec() do
