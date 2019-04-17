@@ -28,16 +28,17 @@ false = DMS.alive?("another-svc-id") #=> false
 
 ## Checklist
 
-- [x] Model a Service as a Process (`DMS.Service`)
-- [x] Register Service against an `id` (`DMS.Servce.Registry`)
-- [x] Add a supervisor for Service Process (`DMS.Service.Supervisor`)
-- [x] Add `ping(id)` function which will init Service if doesn't exist
-- [x] Add `alive?(id)` function which returns `true` if service alive otherwise `false`
-- [x] Add timer to service process which will terminate the process if it hasn't been pinged within `@timeout`
-- [ ] Add Documentation with [ExDoc](https://github.com/elixir-lang/ex_doc)
-- [ ] Add Credo & Dialyzer for linting and static analysis.
-- [ ] Add API to set service as down (before timeout).
-- [ ] Enhance `DMS.id` to contain service id and account token + hash it before use as key in `DMS.Servise.Registry`.
-- [ ] Add HTTP API.
-- [ ] Add Pub/Sub push based API to notify when service is down.
-- [ ] Publish on HEX package manager.
+- [x] ([#13](https://github.com/belfastelixir/DMS/issues/13)) Model a Service as a Process (`DMS.Service`)
+- [x] ([#1](https://github.com/belfastelixir/DMS/issues/1)) Register Service against an `id` (`DMS.Servce.Registry`)
+- [x] ([#2](https://github.com/belfastelixir/DMS/issues/2)) Add a supervisor for Service Process (`DMS.Service.Supervisor`)
+- [x] ([#3](https://github.com/belfastelixir/DMS/issues/3)) Add `ping(id)` function which will init Service if doesn't exist
+- [x] ([#4](https://github.com/belfastelixir/DMS/issues/4)) Add `alive?(id)` function which returns `true` if service alive otherwise `false`
+- [x] ([#5](https://github.com/belfastelixir/DMS/issues/5)) Add timer to service process which will terminate the process if it hasn't been pinged within `@timeout`
+- [ ] ([#12](https://github.com/belfastelixir/DMS/issues/12)) Add Documentation with [ExDoc](https://github.com/elixir-lang/ex_doc)
+- [ ] ([#6](https://github.com/belfastelixir/DMS/issues/6)) Add Credo & Dialyzer for linting and static analysis.
+- [ ] ([#7](https://github.com/belfastelixir/DMS/issues/7)) Add API to set service as down (before timeout).
+- [ ] ([#8](https://github.com/belfastelixir/DMS/issues/8)) Enhance `DMS.id` to contain service id and account token + hash it before use as key in `DMS.Servise.Registry`.
+- [ ] ([#9](https://github.com/belfastelixir/DMS/issues/9)) Add HTTP API.
+- [ ] ([#10](https://github.com/belfastelixir/DMS/issues/10)) Add Pub/Sub push based API to notify when service is down.
+- [ ] ([#11](https://github.com/belfastelixir/DMS/issues/11)) Publish on HEX package manager.
+
