@@ -20,20 +20,20 @@ defmodule DMS.Service do
   """
   @spec ping(DMS.id()) :: :pong | :pang
   def ping(id) do
-    Logger.debug("exist? #{exists?(id)}")
+    child_spec = %{
+      id: id,
+      restart: :temporary,
+      start: {__MODULE__, :start_link, [id]}
+    }
 
-    if exists?(id) do
-      GenServer.cast(via_registry(id), :ping)
-      :pong
-    else
-      child_spec = %{
-        id: id,
-        restart: :temporary,
-        start: {__MODULE__, :start_link, [id]}
-      }
+    case DynamicSupervisor.start_child(@supervisor, child_spec) do
+      {:ok, _} ->
+        GenServer.cast(via_registry(id), :ping)
+        :pong
 
-      {:ok, _} = DynamicSupervisor.start_child(@supervisor, child_spec)
-      :pong
+      {:error, {:already_started, _}} ->
+        GenServer.cast(via_registry(id), :ping)
+        :pong
     end
   end
 
@@ -64,7 +64,7 @@ defmodule DMS.Service do
   @impl GenServer
   def handle_cast(:ping, state) do
     Logger.info("[id: #{state.id}] Ping received.")
-    :ok = Process.cancel_timer(state.timer_ref)
+    Process.cancel_timer(state.timer_ref)
     {:noreply, %{state | timer_ref: kill_switch()}}
   end
 
