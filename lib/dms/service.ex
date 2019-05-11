@@ -5,7 +5,7 @@ defmodule DMS.Service do
   """
   use GenServer
 
-  import DMS.Service.Registry, only: [via_registry: 1, whereis_name: 1, exists?: 1]
+  import DMS.Service.Registry, only: [via_registry: 1, exists?: 1]
 
   require Logger
 

@@ -10,7 +10,6 @@ defmodule DMSTest do
   end
 
   test "ping twice should return ok" do
-    import Task, only: [async: 1, await: 1]
     id = "some_id"
     ping = fn -> DMS.ping(id) end
 
