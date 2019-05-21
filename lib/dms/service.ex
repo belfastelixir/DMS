@@ -28,7 +28,6 @@ defmodule DMS.Service do
 
     case DynamicSupervisor.start_child(@supervisor, child_spec) do
       {:ok, _} ->
-        GenServer.cast(via_registry(id), :ping)
         :pong
 
       {:error, {:already_started, _}} ->
