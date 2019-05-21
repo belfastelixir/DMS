@@ -22,7 +22,8 @@ defmodule DMS.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.0", only: [:dev]}
+      {:credo, "~> 1.0", only: [:dev]},
+      {:dialyxir, "~> 0.5.1", only: [:dev]}
     ]
   end
 end
