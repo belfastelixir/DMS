@@ -1,6 +1,6 @@
 defmodule DMS.Service do
   @moduledoc """
-  Service Actor respresenting an active service.
+  Service Actor representing an active service.
   Will terminate if there has not been a `ping/1` against a `DMS.id` within `@timeout`.
   """
   use GenServer

@@ -7,6 +7,7 @@ _Used as a learning project for members of Belfast Elixir._
 
 * Build:   `mix do deps.get, compile`
 * Test:    `mix test`
+* Documentation: `mix docs`
 * REPL:    `iex -S mix`
 * Observe: `:observer.start`
 

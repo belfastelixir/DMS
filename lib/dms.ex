@@ -5,7 +5,7 @@ defmodule DMS do
   Allows a service to ping with an identity which will result in that
   identity responding as alive.
 
-  After a @timeout period where a service has not pinged with said idenity,
+  After a @timeout period where a service has not pinged with said identity,
   the service will no longer respond as alive.
   """
 
@@ -15,7 +15,7 @@ defmodule DMS do
   alias DMS.Service
 
   @doc """
-  Returns `:pong` if service has been ackowledged as alive by DMS otherwise `:pang`.
+  Returns `:pong` if service has been acknowledged as alive by DMS otherwise `:pang`.
   """
   @spec ping(id) :: :pong | :pang
   def ping(id) do
