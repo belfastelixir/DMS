@@ -35,8 +35,8 @@ false = DMS.alive?("another-svc-id") #=> false
 - [x] ([#3](https://github.com/belfastelixir/DMS/issues/3)) Add `ping(id)` function which will init Service if doesn't exist
 - [x] ([#4](https://github.com/belfastelixir/DMS/issues/4)) Add `alive?(id)` function which returns `true` if service alive otherwise `false`
 - [x] ([#5](https://github.com/belfastelixir/DMS/issues/5)) Add timer to service process which will terminate the process if it hasn't been pinged within `@timeout`
-- [ ] ([#12](https://github.com/belfastelixir/DMS/issues/12)) Add Documentation with [ExDoc](https://github.com/elixir-lang/ex_doc)
-- [ ] ([#6](https://github.com/belfastelixir/DMS/issues/6)) Add Credo & Dialyzer for linting and static analysis.
+- [x] ([#12](https://github.com/belfastelixir/DMS/issues/12)) Add Documentation with [ExDoc](https://github.com/elixir-lang/ex_doc)
+- [x] ([#6](https://github.com/belfastelixir/DMS/issues/6)) Add Credo & Dialyzer for linting and static analysis.
 - [ ] ([#7](https://github.com/belfastelixir/DMS/issues/7)) Add API to set service as down (before timeout).
 - [ ] ([#8](https://github.com/belfastelixir/DMS/issues/8)) Enhance `DMS.id` to contain service id and account token + hash it before use as key in `DMS.Servise.Registry`.
 - [ ] ([#9](https://github.com/belfastelixir/DMS/issues/9)) Add HTTP API.
