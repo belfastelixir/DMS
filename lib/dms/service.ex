@@ -11,19 +11,18 @@ defmodule DMS.Service do
 
   @server __MODULE__
   @supervisor DMS.Service.Supervisor
-  # TODO Make timeout configurable.
-  @timeout 5 * 1000
+  @timeout_ms 5 * 1000
 
   @doc """
   Signals service is alive.
   Returns pong if signal was successful, otherwise pang.
   """
-  @spec ping(DMS.id()) :: :pong | :pang
-  def ping(id) do
+  @spec ping(DMS.id(), DMS.service_options()) :: :pong | :pang
+  def ping(id, opts) when is_list(opts) do
     child_spec = %{
       id: id,
       restart: :temporary,
-      start: {__MODULE__, :start_link, [id]}
+      start: {__MODULE__, :start_link, [{id, opts}]}
     }
 
     case DynamicSupervisor.start_child(@supervisor, child_spec) do
@@ -31,7 +30,7 @@ defmodule DMS.Service do
         :pong
 
       {:error, {:already_started, _}} ->
-        GenServer.cast(via_registry(id), :ping)
+        GenServer.cast(via_registry(id), {:ping, opts})
         :pong
     end
   end
@@ -46,25 +45,37 @@ defmodule DMS.Service do
   end
 
   @doc false
-  def start_link(args) do
-    id = args
+  def timeout_ms(id) do
+    GenServer.call(via_registry(id), :timeout_ms)
+  end
+
+  @doc false
+  def start_link({id, _} = args) do
     GenServer.start_link(@server, args, name: via_registry(id))
   end
 
   @doc false
   @impl GenServer
-  def init(args) do
-    id = args
+  def init({id, opts}) do
+    timeout_ms = opts[:timeout_ms] || @timeout_ms
     Logger.debug("[id: #{id}] New service registered.")
-    {:ok, %{id: id, timer_ref: kill_switch()}}
+    {:ok, %{id: id, timeout_ms: timeout_ms, timer_ref: kill_switch(timeout_ms)}}
   end
 
   @doc false
   @impl GenServer
-  def handle_cast(:ping, state) do
+  def handle_cast({:ping, opts}, state) do
     Logger.info("[id: #{state.id}] Ping received.")
+
+    timeout_ms = opts[:timeout_ms] || state.timeout_ms
     Process.cancel_timer(state.timer_ref)
-    {:noreply, %{state | timer_ref: kill_switch()}}
+    {:noreply, %{state | timeout_ms: timeout_ms, timer_ref: kill_switch(timeout_ms)}}
+  end
+
+  @doc false
+  @impl GenServer
+  def handle_call(:timeout_ms, _from, state) do
+    {:reply, state.timeout_ms, state}
   end
 
   @doc false
@@ -75,7 +86,12 @@ defmodule DMS.Service do
   end
 
   @doc false
-  def kill_switch() do
-    Process.send_after(self(), :die, @timeout)
+  def kill_switch(timeout_ms) do
+    Process.send_after(self(), :die, timeout_ms)
   end
+
+
+
+
+
 end

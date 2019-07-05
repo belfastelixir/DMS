@@ -9,17 +9,38 @@ defmodule DMS do
   the service will no longer respond as alive.
   """
 
+  alias DMS.Service
+
   @typedoc "id of the service"
   @type id :: String.t()
 
-  alias DMS.Service
+  @typedoc "options for configuring service"
+  @type service_option :: {:timeout_ms, pos_integer()}
+
+  @typedoc "list of options for configuring service"
+  @type service_options :: [service_option]
+
+  @typedoc "return type of ping/1 and ping/2"
+  @type ping_ret :: :pong | :pang
 
   @doc """
   Returns `:pong` if service has been acknowledged as alive by DMS otherwise `:pang`.
   """
-  @spec ping(id) :: :pong | :pang
-  def ping(id) do
-    Service.ping(id)
+  @spec ping(id) :: ping_ret()
+  @spec ping(id, service_options) :: ping_ret()
+  def ping(id, service_options \\ [])
+
+  @max_byte_size 256
+  def ping(id, service_options) when is_binary(id) and byte_size(id) <= @max_byte_size do
+    if id == "" do
+      :pang
+    else
+      Service.ping(id, service_options)
+    end
+  end
+
+  def ping(_id, _service_options) do
+    :pang
   end
 
   @doc """

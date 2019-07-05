@@ -14,8 +14,17 @@ defmodule DMS.MixProject do
       docs: [
         main: "DMS",
         extras: ["README.md"]
-      ]
+      ],
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
+  end
+
+  def elixirc_paths(:test) do
+    ["lib", "test/support"]
+  end
+
+  def elixirc_paths(_) do
+    ["lib"]
   end
 
   # Run "mix help compile.app" to learn about applications.
@@ -31,7 +40,8 @@ defmodule DMS.MixProject do
     [
       {:credo, "~> 1.0", only: [:dev]},
       {:dialyxir, "~> 0.5.1", only: [:dev]},
-      {:ex_doc, "~> 0.19", only: [:dev], runtime: false}
+      {:ex_doc, "~> 0.19", only: [:dev], runtime: false},
+      {:stream_data, "~> 0.4.3", only: [:test]}
     ]
   end
 end
